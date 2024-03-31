@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,44 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+.pagination {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  margin: auto;
+}
+
+.pagination .page-link {
+  display: list-item;
+}
+
+.pagination .page-item .page-link {
+  color: #ffffff;
+  background-color: #212529;
+}
+
+.pagination .active .page-link {
+  color: #ffffff;
+  background-color: #212529;
+  border: none !important;
+}
+
+.page-item:not(:first-child) .page-link {
+  margin-left: 0;
+}
+
+.dropdown-menu {
+  background-color: #212529;
+  border: 1px solid #4e5052;
+}
+
+.dropdown-item {
+  color: #ffffff;
+  border-bottom: 1px solid #4e5052;
+}
+
+.dropdown-item:hover {
+  color: #212529;
 }
