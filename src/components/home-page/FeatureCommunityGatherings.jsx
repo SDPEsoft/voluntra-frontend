@@ -11,7 +11,7 @@ const FeatureCommunityGatherings = () => {
         </Button>
       </Stack>
       <Stack direction="horizontal" gap={3} className="mt-3">
-        <Card>
+        <Card bg="dark" text="white" >
           <Card.Img
             variant="top"
             src="https://charlestonanimalsociety.org/nokillscshelter/wp-content/uploads/2022/05/lights-camera-APPRECIATION.png"
@@ -26,7 +26,7 @@ const FeatureCommunityGatherings = () => {
             </Card.Text>
           </Card.Body>
         </Card>
-        <Card>
+        <Card bg="dark" text="white" >
           <Card.Img
             variant="top"
             src="https://www.newham.gov.uk/images/09121_Volunteer_Day_Social_tiles_v6_BOTTOM_MIDDLE.jpg"
@@ -41,7 +41,7 @@ const FeatureCommunityGatherings = () => {
             </Card.Text>
           </Card.Body>
         </Card>
-        <Card>
+        <Card bg="dark" text="white" >
           <Card.Img
             variant="top"
             src="https://www.gracegrapevine.org/wp-content/uploads/2022/06/Volunteer-Appreciation-Evite-2022-4.png"

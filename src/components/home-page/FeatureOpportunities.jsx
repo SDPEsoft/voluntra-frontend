@@ -12,7 +12,7 @@ const FeatureOpportunities = () => {
         </Button>
       </Stack>
       <Stack direction="horizontal" gap={3} className="mt-3">
-        <Card>
+        <Card bg="dark" text="white" >
           <Card.Img
             variant="top"
             src="https://img.freepik.com/free-vector/minimal-charity-event-facebook-post-template_23-2149387655.jpg?size=626&ext=jpg&ga=GA1.1.2082370165.1711411200&semt=ais"
@@ -27,7 +27,7 @@ const FeatureOpportunities = () => {
             </Card.Text>
           </Card.Body>
         </Card>
-        <Card>
+        <Card bg="dark" text="white" >
           <Card.Img
             variant="top"
             src="https://mir-s3-cdn-cf.behance.net/projects/404/8b5435164095993.Y3JvcCwxMDgwLDg0NCwwLDA.jpg"
@@ -42,7 +42,7 @@ const FeatureOpportunities = () => {
             </Card.Text>
           </Card.Body>
         </Card>
-        <Card>
+        <Card bg="dark" text="white" >
           <Card.Img
             variant="top"
             src="https://images.squarespace-cdn.com/content/v1/638d4d0d785e9054780ddf5d/ce0924b3-8642-4585-bfbe-480df9622ddf/Coastal+WALKWAY+clean+up+FB+event.png"
