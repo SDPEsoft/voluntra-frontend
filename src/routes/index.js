@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import NotFoundPage from "../pages/errors/NotFoundPage";
 import HomePage from "../pages/HomePage";
-import SigninPage from "../pages/auth/SigninPage";
 import AdminSignupPage from "../pages/auth/AdminSignupPage";
 import VolunteerDashboard from "../pages/(logged-in)/VolunteerDashboard";
 import OrganizationDashboard from "../pages/(logged-in)/OrganizationDashboard";
@@ -9,10 +8,10 @@ import AdminDashboard from "../pages/(logged-in)/AdminDashboard";
 import Opportunities from "../pages/(logged-in)/opportunities/Opportunities";
 import Opportunity from "../pages/(logged-in)/opportunities/Opportunity";
 import Organizations from "../pages/(logged-in)/organizations/Organizations";
-import OrganizationDetailsCard from "../components/organizations/OrganizationDetailsCard";
 import Organization from "../pages/(logged-in)/organizations/Organization";
 import Volunteers from "../pages/(logged-in)/volunteers/Volunteers";
 import Volunteer from "../pages/(logged-in)/volunteers/Volunteer";
+import AdminLogin from "../pages/auth/AdminLogin";
 
 export const routes = createBrowserRouter([
   {
@@ -22,7 +21,7 @@ export const routes = createBrowserRouter([
   },
   {
     path: "/signin",
-    element: <SigninPage />,
+    element: <AdminLogin />,
   },
   {
     path: "/admin/signup",
