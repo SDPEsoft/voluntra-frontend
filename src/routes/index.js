@@ -12,6 +12,10 @@ import Organization from "../pages/(logged-in)/organizations/Organization";
 import Volunteers from "../pages/(logged-in)/volunteers/Volunteers";
 import Volunteer from "../pages/(logged-in)/volunteers/Volunteer";
 import AdminLogin from "../pages/auth/AdminLogin";
+import VolunteerSignup from "../pages/auth/VolunteerSignup";
+import VolunteerSignin from "../pages/auth/VolunteerSignin";
+import OrganizationSignup from "../pages/auth/OrganizationSignup";
+import OrganizationSignin from "../pages/auth/OrganizationSignin";
 
 export const routes = createBrowserRouter([
   {
@@ -22,6 +26,22 @@ export const routes = createBrowserRouter([
   {
     path: "/signin",
     element: <AdminLogin />,
+  },
+  {
+    path: "/volunteer/signup",
+    element: <VolunteerSignup/>
+  },
+  {
+    path: "/volunteer/signin",
+    element: <VolunteerSignin/>
+  },
+  {
+    path: "/organization/signup",
+    element: <OrganizationSignup/>
+  },
+  {
+    path: "/organization/signin",
+    element: <OrganizationSignin/>
   },
   {
     path: "/admin/signup",
