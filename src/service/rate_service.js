@@ -117,6 +117,17 @@ export default function rate_service() {
         }
     }
 
+    const deleteRate = async (id) => {
+        try {
+            const response = await axios.delete(`http://localhost:8080/rates/${id}`);
+            setRates(response.data);
+        } catch (error) {
+            if (error.response.status === 401) {
+                navigate("/");
+            }
+        }
+    }
+
     return (
         <div>
 
