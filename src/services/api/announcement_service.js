@@ -3,7 +3,7 @@ import axios from "axios";
 export const createAnnouncement = async (data) => {
   try {
     const response = await axios.post(
-      "http://localhost:8080/announcements",
+      `${process.env.BACKEND_BASE_URL}/announcements`,
       data
     );
     return response;
@@ -15,7 +15,7 @@ export const createAnnouncement = async (data) => {
 
 export const getAllAnnouncements = async () => {
   try {
-    const response = await axios.get("http://localhost:8080/announcements");
+    const response = await axios.get(`${process.env.BACKEND_BASE_URL}/announcements`);
     return response;
   } catch (error) {
     console.log("Error: while getting all announcements", error);
@@ -26,7 +26,7 @@ export const getAllAnnouncements = async () => {
 export const updateAnnouncement = async (id, data) => {
   try {
     const response = await axios.put(
-      `http://localhost:8080/announcements/${id}`,
+      `${process.env.BACKEND_BASE_URL}/announcements/${id}`,
       data
     );
     return response;
@@ -39,7 +39,7 @@ export const updateAnnouncement = async (id, data) => {
 export const deleteAnnouncement = async (id) => {
   try {
     const response = await axios.delete(
-      `http://localhost:8080/announcements/${id}`
+      `${process.env.BACKEND_BASE_URL}/announcements/${id}`
     );
     return response;
   } catch (error) {
@@ -50,7 +50,7 @@ export const deleteAnnouncement = async (id) => {
 
 export const getAllOrganizations = async () => {
   try {
-    const response = await axios.get("http://localhost:8080/organizations");
+    const response = await axios.get(`${process.env.BACKEND_BASE_URL}/organizations`);
     return response;
   } catch (error) {
     console.log("Error: while getting all organizations", error);
@@ -61,7 +61,7 @@ export const getAllOrganizations = async () => {
 export const getAnnouncementsById = async (id) => {
   try {
     const response = await axios.get(
-      `http://localhost:8080/announcements/${id}`
+      `${process.env.BACKEND_BASE_URL}/announcements/${id}`
     );
     return response;
   } catch (error) {
@@ -73,7 +73,7 @@ export const getAnnouncementsById = async (id) => {
 export const getAnnouncementsByOrganization = async (id) => {
   try {
     const response = await axios.get(
-      `http://localhost:8080/organizations/${id}/announcements`
+      `${process.env.BACKEND_BASE_URL}/organizations/${id}/announcements`
     );
     return response;
   } catch (error) {

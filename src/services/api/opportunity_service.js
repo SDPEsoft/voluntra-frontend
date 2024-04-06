@@ -3,7 +3,7 @@ import axios from "axios";
 export const createOpportunity = async (data) => {
   try {
     const response = await axios.post(
-      "http://localhost:8080/opportunities",
+      `${process.env.BACKEND_BASE_URL}/opportunities`,
       data
     );
     return response;
@@ -15,7 +15,9 @@ export const createOpportunity = async (data) => {
 
 export const getAllOpportunities = async () => {
   try {
-    const response = await axios.get("http://localhost:8080/opportunities");
+    const response = await axios.get(
+      `${process.env.BACKEND_BASE_URL}/opportunities`
+    );
     return response;
   } catch (error) {
     console.log("Error: while getting all opportunities", error);
@@ -26,7 +28,7 @@ export const getAllOpportunities = async () => {
 export const updateOpportunity = async (id, data) => {
   try {
     const response = await axios.put(
-      `http://localhost:8080/opportunities/${id}`,
+      `${process.env.BACKEND_BASE_URL}/opportunities/${id}`,
       data
     );
     return response;
@@ -39,7 +41,7 @@ export const updateOpportunity = async (id, data) => {
 export const deleteOpportunity = async (id) => {
   try {
     const response = await axios.delete(
-      `http://localhost:8080/opportunities/${id}`
+      `${process.env.BACKEND_BASE_URL}/opportunities/${id}`
     );
     return response;
   } catch (error) {
@@ -51,7 +53,7 @@ export const deleteOpportunity = async (id) => {
 export const getOpportunitiesById = async (id) => {
   try {
     const response = await axios.get(
-      `http://localhost:8080/opportunities/${id}`
+      `${process.env.BACKEND_BASE_URL}/opportunities/${id}`
     );
     return response;
   } catch (error) {
@@ -63,7 +65,7 @@ export const getOpportunitiesById = async (id) => {
 export const getOpportunitiesByOrganization = async (id) => {
   try {
     const response = await axios.get(
-      `http://localhost:8080/organizations/${id}/opportunities`
+      `${process.env.BACKEND_BASE_URL}/organizations/${id}/opportunities`
     );
     return response;
   } catch (error) {
@@ -74,7 +76,9 @@ export const getOpportunitiesByOrganization = async (id) => {
 
 export const getAllOrganizations = async () => {
   try {
-    const response = await axios.get("http://localhost:8080/organizations");
+    const response = await axios.get(
+      `${process.env.BACKEND_BASE_URL}/organizations`
+    );
     return response;
   } catch (error) {
     console.log("Error: while getting all organizations", error);
