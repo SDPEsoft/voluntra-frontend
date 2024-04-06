@@ -16,6 +16,11 @@ import VolunteerSignup from "../pages/auth/VolunteerSignup";
 import VolunteerSignin from "../pages/auth/VolunteerSignin";
 import OrganizationSignup from "../pages/auth/OrganizationSignup";
 import OrganizationSignin from "../pages/auth/OrganizationSignin";
+import Profile from "../pages/(logged-in)/user/Profile";
+import Members from "../pages/(logged-in)/organizations/Members";
+import Member from "../pages/(logged-in)/organizations/Member";
+import Announcements from "../pages/(logged-in)/announcements/Announcements";
+import Announcement from "../pages/(logged-in)/announcements/Announcement";
 
 export const routes = createBrowserRouter([
   {
@@ -24,29 +29,30 @@ export const routes = createBrowserRouter([
     errorElement: <NotFoundPage />,
   },
   {
-    path: "/signin",
+    path: "/admin/signup",
+    element: <AdminSignupPage />,
+  },
+  {
+    path: "/admin/signin",
     element: <AdminLogin />,
   },
   {
     path: "/volunteer/signup",
-    element: <VolunteerSignup/>
+    element: <VolunteerSignup />,
   },
   {
     path: "/volunteer/signin",
-    element: <VolunteerSignin/>
+    element: <VolunteerSignin />,
   },
   {
     path: "/organization/signup",
-    element: <OrganizationSignup/>
+    element: <OrganizationSignup />,
   },
   {
     path: "/organization/signin",
-    element: <OrganizationSignin/>
+    element: <OrganizationSignin />,
   },
-  {
-    path: "/admin/signup",
-    element: <AdminSignupPage />,
-  },
+
   {
     path: "/volunteer-dashboard",
     element: <VolunteerDashboard />,
@@ -82,5 +88,25 @@ export const routes = createBrowserRouter([
   {
     path: "/volunteers/:id",
     element: <Volunteer />,
+  },
+  {
+    path: "/members",
+    element: <Members />,
+  },
+  {
+    path: "/members/:id",
+    element: <Member />,
+  },
+  {
+    path: "/announcements",
+    element: <Announcements />,
+  },
+  {
+    path: "/announcements/:id",
+    element: <Announcement />,
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
   },
 ]);
