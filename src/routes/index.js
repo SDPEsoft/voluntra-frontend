@@ -12,6 +12,16 @@ import Organization from "../pages/(logged-in)/organizations/Organization";
 import Volunteers from "../pages/(logged-in)/volunteers/Volunteers";
 import Volunteer from "../pages/(logged-in)/volunteers/Volunteer";
 import AdminLogin from "../pages/auth/AdminLogin";
+import VolunteerSignup from "../pages/auth/VolunteerSignup";
+import VolunteerSignin from "../pages/auth/VolunteerSignin";
+import OrganizationSignup from "../pages/auth/OrganizationSignup";
+import OrganizationSignin from "../pages/auth/OrganizationSignin";
+import Profile from "../pages/(logged-in)/user/Profile";
+import Members from "../pages/(logged-in)/organizations/Members";
+import Member from "../pages/(logged-in)/organizations/Member";
+import Announcements from "../pages/(logged-in)/announcements/Announcements";
+import Announcement from "../pages/(logged-in)/announcements/Announcement";
+import ProtectedRoute from "../components/auth/ProtectedRoute";
 
 export const routes = createBrowserRouter([
   {
@@ -20,47 +30,140 @@ export const routes = createBrowserRouter([
     errorElement: <NotFoundPage />,
   },
   {
-    path: "/signin",
-    element: <AdminLogin />,
-  },
-  {
     path: "/admin/signup",
     element: <AdminSignupPage />,
   },
   {
+    path: "/admin/signin",
+    element: <AdminLogin />,
+  },
+  {
+    path: "/volunteer/signup",
+    element: <VolunteerSignup />,
+  },
+  {
+    path: "/volunteer/signin",
+    element: <VolunteerSignin />,
+  },
+  {
+    path: "/organization/signup",
+    element: <OrganizationSignup />,
+  },
+  {
+    path: "/organization/signin",
+    element: <OrganizationSignin />,
+  },
+
+  {
     path: "/volunteer-dashboard",
-    element: <VolunteerDashboard />,
+    element: (
+      <ProtectedRoute>
+        <VolunteerDashboard />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/organization-dashboard",
-    element: <OrganizationDashboard />,
+    element: (
+      <ProtectedRoute>
+        <OrganizationDashboard />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/admin-dashboard",
-    element: <AdminDashboard />,
+    element: (
+      <ProtectedRoute>
+        <AdminDashboard />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/opportunities",
-    element: <Opportunities />,
+    element: (
+      <ProtectedRoute>
+        <Opportunities />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/opportunities/:id",
-    element: <Opportunity />,
+    element: (
+      <ProtectedRoute>
+        <Opportunity />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/organizations",
-    element: <Organizations />,
+    element: (
+      <ProtectedRoute>
+        <Organizations />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/organizations/:id",
-    element: <Organization />,
+    element: (
+      <ProtectedRoute>
+        <Organization />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/volunteers",
-    element: <Volunteers />,
+    element: (
+      <ProtectedRoute>
+        <Volunteers />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/volunteers/:id",
-    element: <Volunteer />,
+    element: (
+      <ProtectedRoute>
+        <Volunteer />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/members",
+    element: (
+      <ProtectedRoute>
+        <Members />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/members/:id",
+    element: (
+      <ProtectedRoute>
+        <Member />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/announcements",
+    element: (
+      <ProtectedRoute>
+        <Announcements />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/announcements/:id",
+    element: (
+      <ProtectedRoute>
+        <Announcement />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/profile",
+    element: (
+      <ProtectedRoute>
+        <Profile />
+      </ProtectedRoute>
+    ),
   },
 ]);

@@ -3,9 +3,9 @@ import { Card, Stack } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Rating from "../common/Rating";
 
-const OrganizationCard = ({ organization }) => {
+const OrganizationCard = ({ key,organization }) => {
   return (
-    <div>
+    <div key={key}>
       <Link
         to={`/organizations/${organization?.id}`}
         className="text-decoration-none"
@@ -25,11 +25,11 @@ const OrganizationCard = ({ organization }) => {
                     alt="Avatar"
                   />
                   <div>
-                    <div>{organization?.name}</div>
+                    <div>{organization?.username}</div>
                     <div className="text-secondary">{organization?.email}</div>
-                    <div>
+                    {/* <div>
                       <Rating rating={organization?.rating} />
-                    </div>
+                    </div> */}
                   </div>
                 </Stack>
                 <Stack
@@ -37,8 +37,8 @@ const OrganizationCard = ({ organization }) => {
                   gap={3}
                   className="d-flex justify-content-between align-items-center border-bottom border-secondary"
                 >
-                  <div>Start Date : </div>
-                  <div>{organization?.start_date}</div>
+                  <div>Type : </div>
+                  <div>{organization?.type}</div>
                 </Stack>
                 <Stack
                   direction="vertical"
@@ -47,14 +47,14 @@ const OrganizationCard = ({ organization }) => {
                   <div>Address : </div>
                   <div> {organization?.address}</div>
                 </Stack>
-                <Stack
+                {/* <Stack
                   direction="horizontal"
                   gap={3}
                   className="d-flex justify-content-between align-items-center border-bottom border-secondary"
                 >
                   <div>Members Count : </div>
                   <div>{organization?.members_count}</div>
-                </Stack>
+                </Stack> */}
                 <Stack direction="vertical">
                   <div>Description : </div>
                   <div className="text-white-50">

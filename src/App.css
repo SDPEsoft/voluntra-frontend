@@ -76,3 +76,22 @@
 .dropdown-item:hover {
   color: #212529;
 }
+
+.toast-header .btn-close{
+  color: #ffffff !important;
+  fill:#ffffff !important;
+}
+
+.react-datetime-picker__wrapper{
+  padding: 5px !important;
+  border: 1px solid #FFFFFF !important;
+  border-radius: 5px;
+}
+
+.react-datetime-picker__wrapper svg {
+  stroke: #000000 !important;
+}
+
+.react-datetime-picker__clear-button{
+  display: none;
+}

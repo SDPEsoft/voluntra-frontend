@@ -1,5 +1,4 @@
 import React from "react";
-import { TypeAnimation } from "react-type-animation";
 import NavigationBar from "../components/layouts/Navbar";
 import BannerSection from "../components/home-page/BannerSection";
 import FeatureOpportunities from "../components/home-page/FeatureOpportunities";

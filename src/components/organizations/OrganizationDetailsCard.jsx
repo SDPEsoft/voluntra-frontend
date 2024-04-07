@@ -44,31 +44,31 @@ const OrganizationDetailsCard = ({ id, organization }) => {
                 />
                 <div>
                   <div className="fs-4">
-                    {organization?.name}
+                    {organization?.username}
                     <br />
                     <span className="text-secondary">
                       {organization?.email}
                     </span>
-                    <Rating rating={organization?.rating} />
+                    {/* <Rating rating={organization?.rating} /> */}
                   </div>
                 </div>
               </div>
               <Row direction="horizontal">
                 <Col xs={12} md={6} className="mt-3">
+                  <div className="fw-bold">Type </div>
+                  <div>{organization?.type}</div>
+                </Col>
+                <Col xs={12} md={6} className="mt-3">
                   <div className="fw-bold">Address </div>
                   <div>{organization?.address}</div>
                 </Col>
-                <Col xs={12} md={6} className="mt-3">
-                  <div className="fw-bold">Start Date </div>
-                  <div>{organization?.start_date}</div>
-                </Col>
               </Row>
-              <Row direction="horizontal">
+              {/* <Row direction="horizontal">
                 <Col xs={12} md={6} className="mt-3">
                   <div className="fw-bold">Members Count </div>
                   <div>{organization?.members_count}</div>
                 </Col>
-              </Row>
+              </Row> */}
               <Row className="mt-3">
                 <Col>
                   <div className="text-white-50">
