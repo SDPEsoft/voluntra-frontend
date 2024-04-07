@@ -1,4 +1,3 @@
-
 import React from "react";
 import NavigationBar from "../../components/layouts/Navbar";
 import Footer from "../../components/layouts/Footer";
@@ -19,29 +18,17 @@ const info = [
     href: "/organizations",
   },
   {
-    heading: "Members",
-    count: "115",
-    description: "View Members",
-    href: "/members",
-  },
-  {
     heading: "Volunteers",
     count: "115",
     description: "View volunteers",
     href: "/volunteers",
   },
   {
-    heading: "Trainig Seesions",
-    count: "5",
-    description: "View Trainig Seesions",
-    href: "/trainings",
-  },
-  {
     heading: "Organizations Announcements",
     count: "5",
-    description: "View Organizations events",
-    href: "/events",
-  }
+    description: "View announcements",
+    href: "/announcements",
+  },
 ];
 
 const OrganizationDashboard = () => {

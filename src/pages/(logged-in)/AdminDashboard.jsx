@@ -24,12 +24,6 @@ const info = [
     href: "/opportunities",
   },
   {
-    heading: "Training Seesions",
-    count: "5",
-    description: "View Trainig Seesions",
-    href: "/trainings",
-  },
-  {
     heading: "Organizations Announcements",
     count: "5",
     description: "View Organizations announcements",

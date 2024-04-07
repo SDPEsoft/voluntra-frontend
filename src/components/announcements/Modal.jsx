@@ -10,76 +10,27 @@ import {
 } from "react-bootstrap";
 // import { DateTime } from "react-datetime-bootstrap";
 import { IoMdClose } from "react-icons/io";
-import DateTimePicker from "react-datetime-picker";
-import "react-datetime-picker/dist/DateTimePicker.css";
-import "react-calendar/dist/Calendar.css";
-import "react-clock/dist/Clock.css";
-import { format, formatISO } from "date-fns";
-import { getAllOrganizations } from "../../services/api/organization.service";
-import { createOpportunity } from "../../services/api/opportunity_service";
 import { useDispatch } from "react-redux";
 import { updateToast } from "../../redux/toast";
 import { useNavigate } from "react-router-dom";
+import { getAllOrganizations } from "../../services/api/organization.service";
+import { registerForOpportunity } from "../../services/api/useroppo_service";
+import { createAnnouncement } from "../../services/api/announcement_service";
 
-export const OpportunitiesRegisterModal = ({ show, handleClose }) => {
-  return (
-    <Modal show={show} onHide={handleClose} backdrop="static">
-      <Modal.Body className="bg-dark text-white border-0 rounded border-left border-secondary">
-        <div className="my-3 fs-4">Are you attend the event?</div>
-        <div className="d-flex justify-content-end gap-2 align-items-center my-3">
-          <Button variant="secondary" onClick={handleClose}>
-            No
-          </Button>
-          <Button variant="light" onClick={handleClose}>
-            Yes
-          </Button>
-        </div>
-      </Modal.Body>
-    </Modal>
-  );
-};
 
-export const OpportunitiesCancelModal = ({ show, handleClose }) => {
-  return (
-    <Modal show={show} onHide={handleClose} backdrop="static">
-      <Modal.Body className="bg-dark text-white border-0 rounded border-left border-secondary">
-        <div className="my-3 fs-4">Are you sure event is cancel?</div>
-        <div className="d-flex justify-content-end gap-2 align-items-center my-3">
-          <Button variant="secondary" onClick={handleClose}>
-            No
-          </Button>
-          <Button variant="light" onClick={handleClose}>
-            Yes
-          </Button>
-        </div>
-      </Modal.Body>
-    </Modal>
-  );
-};
 
-export const OpportunitiesAddModal = ({ show, handleClose }) => {
+export const AnnouncementAddModal = ({ show, handleClose }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [validated, setValidated] = useState(false);
   const [title, setTitle] = useState("");
-  const [type, setType] = useState("");
-  const [objectives, setObjectives] = useState("");
-  const [location, setLocation] = useState("");
+  const [message, setMessage] = useState("");
   const [description, setDescription] = useState("");
-  const [startDate, setStartDate] = useState(formatISO(new Date()));
-  const [endDate, setEndDate] = useState(formatISO(new Date()));
-  const [organizations, setOrganizations] = useState([]);
   const [organizationId, setOrganizationId] = useState("");
+  const [organizations, setOrganizations] = useState([]);
   const [isOrgLoading, setIsOrgLoading] = React.useState(true);
   const [isLoading, setIsLoading] = React.useState(false);
 
-  const handleStartDateTimeChange = (dateTime) => {
-    setStartDate(formatISO(dateTime));
-  };
-
-  const handleEndDateTimeChange = (dateTime) => {
-    setEndDate(formatISO(dateTime));
-  };
 
   const handleSubmit = async (event) => {
     setIsLoading(true);
@@ -91,22 +42,18 @@ export const OpportunitiesAddModal = ({ show, handleClose }) => {
     } else {
       const data = {
         title: title,
-        type: type,
-        objectives: objectives,
-        location: location,
+        message: message,
         description: description,
-        startDate: startDate,
-        endDate: endDate,
         organizationId: organizationId,
       };
-      const response = await createOpportunity(data);
+      const response = await createAnnouncement(data);
 
       dispatch(
         updateToast({
           show: "true",
           message:
             response.status === 200 || response.status === 201
-              ? "Successfully created Opportunity"
+              ? "Successfully created announcement"
               : response.response.data || "Something went wrong",
           status:
             response.status === 200 || response.status === 201
@@ -142,7 +89,7 @@ export const OpportunitiesAddModal = ({ show, handleClose }) => {
     <Modal size="lg" show={show} onHide={handleClose} backdrop="static">
       <Modal.Body className="bg-dark text-white border-0 rounded border-left border-secondary">
         <div className="d-flex justify-content-between align-items-cemter">
-          <h3 className="text-Left">Create Oppurtunity</h3>
+          <h3 className="text-Left">Create Announcement</h3>
           <div style={{ cursor: "pointer" }}>
             <IoMdClose size={25} onClick={handleClose} />
           </div>
@@ -155,11 +102,10 @@ export const OpportunitiesAddModal = ({ show, handleClose }) => {
                 <Form.Select
                   value={organizationId}
                   onChange={(e) => setOrganizationId(e.target.value)}
-                  defaultValue={organizations[0]?.id}
                 >
                   {organizations?.map((organization, key) => (
-                    <option key={key} value={organization?.id}>
-                      {organization?.username}
+                    <option key={key} value={organization.id}>
+                      {organization.username}
                     </option>
                   ))}
                 </Form.Select>
@@ -179,26 +125,24 @@ export const OpportunitiesAddModal = ({ show, handleClose }) => {
                   onChange={(e) => setTitle(e.target.value)}
                 />
                 <Form.Control.Feedback type="invalid">
-                  Please provide oppurtunity title
+                  Please provide announcement title
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group as={Col} md="6" controlId="validationCustom02">
-                <Form.Label>Type</Form.Label>
-                <Form.Select
+                <Form.Label>Message</Form.Label>
+                <Form.Control
                   required
-                  value={type}
-                  onChange={(e) => setType(e.target.value)}
-                >
-                  <option value="one-time">One Time</option>
-                  <option value="long-term">Long Term</option>
-                  <option value="ongoing">Ongoing</option>
-                </Form.Select>
+                  type="text"
+                  placeholder="Message"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                />
                 <Form.Control.Feedback type="invalid">
-                  Please provide oppurtunity type
+                  Please provide message
                 </Form.Control.Feedback>
               </Form.Group>
             </Row>
-            <Row className="mb-3">
+            {/* <Row className="mb-3">
               <Form.Group as={Col} md="6" controlId="validationCustom01">
                 <Form.Label>Location</Form.Label>
                 <Form.Control
@@ -215,57 +159,18 @@ export const OpportunitiesAddModal = ({ show, handleClose }) => {
 
               <Form.Group as={Col} md="6" controlId="validationCustom02">
                 <Form.Label>Objectives</Form.Label>
-                <Form.Select
+                <Form.Control
                   required
+                  type="text"
+                  placeholder="Objectives"
                   value={objectives}
                   onChange={(e) => setObjectives(e.target.value)}
-                >
-                  <option value="teaching">Teaching</option>
-                  <option value="cleaning">Cleaning</option>
-                  <option value="building">Building</option>
-                  <option value="others">Others</option>
-                </Form.Select>
+                />
                 <Form.Control.Feedback type="invalid">
                   Please provide oppurtunity objectives
                 </Form.Control.Feedback>
               </Form.Group>
-            </Row>
-
-            <Row className="mb-3">
-              <Form.Group
-                as={Col}
-                md="6"
-                controlId="validationCustom01"
-                className="d-flex flex-column justify-content-start"
-              >
-                <Form.Label>Start DateTime</Form.Label>
-                <DateTimePicker
-                  onChange={handleStartDateTimeChange}
-                  value={startDate}
-                  className={"bg-light text-black rounded"}
-                />
-                <Form.Control.Feedback type="invalid">
-                  Please provide oppurtunity start date
-                </Form.Control.Feedback>
-              </Form.Group>
-
-              <Form.Group
-                as={Col}
-                md="6"
-                controlId="validationCustom01"
-                className="d-flex flex-column justify-content-start"
-              >
-                <Form.Label>End DateTime</Form.Label>
-                <DateTimePicker
-                  onChange={handleEndDateTimeChange}
-                  value={endDate}
-                  className={"bg-light text-black rounded"}
-                />
-                <Form.Control.Feedback type="invalid">
-                  Please provide oppurtunity end date
-                </Form.Control.Feedback>
-              </Form.Group>
-            </Row>
+            </Row> */}
 
             <Row className="mb-3">
               <Form.Group

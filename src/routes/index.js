@@ -21,6 +21,7 @@ import Members from "../pages/(logged-in)/organizations/Members";
 import Member from "../pages/(logged-in)/organizations/Member";
 import Announcements from "../pages/(logged-in)/announcements/Announcements";
 import Announcement from "../pages/(logged-in)/announcements/Announcement";
+import ProtectedRoute from "../components/auth/ProtectedRoute";
 
 export const routes = createBrowserRouter([
   {
@@ -55,58 +56,114 @@ export const routes = createBrowserRouter([
 
   {
     path: "/volunteer-dashboard",
-    element: <VolunteerDashboard />,
+    element: (
+      <ProtectedRoute>
+        <VolunteerDashboard />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/organization-dashboard",
-    element: <OrganizationDashboard />,
+    element: (
+      <ProtectedRoute>
+        <OrganizationDashboard />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/admin-dashboard",
-    element: <AdminDashboard />,
+    element: (
+      <ProtectedRoute>
+        <AdminDashboard />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/opportunities",
-    element: <Opportunities />,
+    element: (
+      <ProtectedRoute>
+        <Opportunities />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/opportunities/:id",
-    element: <Opportunity />,
+    element: (
+      <ProtectedRoute>
+        <Opportunity />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/organizations",
-    element: <Organizations />,
+    element: (
+      <ProtectedRoute>
+        <Organizations />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/organizations/:id",
-    element: <Organization />,
+    element: (
+      <ProtectedRoute>
+        <Organization />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/volunteers",
-    element: <Volunteers />,
+    element: (
+      <ProtectedRoute>
+        <Volunteers />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/volunteers/:id",
-    element: <Volunteer />,
+    element: (
+      <ProtectedRoute>
+        <Volunteer />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/members",
-    element: <Members />,
+    element: (
+      <ProtectedRoute>
+        <Members />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/members/:id",
-    element: <Member />,
+    element: (
+      <ProtectedRoute>
+        <Member />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/announcements",
-    element: <Announcements />,
+    element: (
+      <ProtectedRoute>
+        <Announcements />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/announcements/:id",
-    element: <Announcement />,
+    element: (
+      <ProtectedRoute>
+        <Announcement />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/profile",
-    element: <Profile />,
+    element: (
+      <ProtectedRoute>
+        <Profile />
+      </ProtectedRoute>
+    ),
   },
 ]);

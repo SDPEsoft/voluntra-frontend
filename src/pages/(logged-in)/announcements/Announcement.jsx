@@ -1,23 +1,24 @@
-import React from "react";
+import React , { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import NavigationBar from "../../../components/layouts/Navbar";
 import Footer from "../../../components/layouts/Footer";
 import AnnouncementDetailCard from "../../../components/announcements/AnnouncementDetailCard";
-
-const announcement = {
-  id: 1,
-  name: "Jhon Smith",
-  email: "jhonsmith@gmail.com",
-  phone_no: "0771234567",
-  logo_url: "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp",
-  description: "Volunteer 1 description",
-  address: "Colombo 03.",
-  dob: "12-05-2024",
-  rating: 3,
-};
+import { getAnnouncementsById } from "../../../services/api/announcement_service";
 
 const Announcement = () => {
   const params = useParams();
+  const [announcement, setAnnouncement] = React.useState();
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  const fetchAnnouncementById = async () => {
+    setIsLoading(true);
+    const response = await getAnnouncementsById(params.id);
+    setAnnouncement(response.data);
+  };
+
+  useEffect(() => {
+    fetchAnnouncementById();
+  }, []);
   return (
     <div>
       <NavigationBar />

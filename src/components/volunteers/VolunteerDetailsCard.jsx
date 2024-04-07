@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  Container,
-  Card,
-  Row,
-  Col,
-  Button,
-} from "react-bootstrap";
+import { Container, Card, Row, Col, Button } from "react-bootstrap";
 import Rating from "../common/Rating";
 
 const VolunteerDetailsCard = ({ id, volunteer }) => {
@@ -40,11 +34,9 @@ const VolunteerDetailsCard = ({ id, volunteer }) => {
                 />
                 <div>
                   <div className="fs-4">
-                    {volunteer?.name}
+                    {volunteer?.username}
                     <br />
-                    <span className="text-secondary">
-                      {volunteer?.email}
-                    </span>
+                    <span className="text-secondary">{volunteer?.email}</span>
                     <Rating rating={volunteer?.rating} />
                   </div>
                 </div>
@@ -52,10 +44,10 @@ const VolunteerDetailsCard = ({ id, volunteer }) => {
               <Row direction="horizontal">
                 <Col xs={12} md={6} className="mt-3">
                   <div className="fw-bold">Phone Number </div>
-                  <div>{volunteer?.phone_no}</div>
+                  <div>{volunteer?.phoneno}</div>
                 </Col>
                 <Col xs={12} md={6} className="mt-3">
-                <div className="fw-bold">Address </div>
+                  <div className="fw-bold">Address </div>
                   <div>{volunteer?.address}</div>
                 </Col>
               </Row>
@@ -67,9 +59,20 @@ const VolunteerDetailsCard = ({ id, volunteer }) => {
               </Row>
               <Row className="mt-3">
                 <Col>
-                  <div className="text-white-50">
-                    {volunteer?.description}
-                  </div>
+                  <div>Interests</div>
+                  <div className="text-white-50">{volunteer?.interests}</div>
+                </Col>
+              </Row>
+              <Row className="mt-3">
+                <Col>
+                  <div>Abilities</div>
+                  <div className="text-white-50">{volunteer?.abilities}</div>
+                </Col>
+              </Row>
+              <Row className="mt-3">
+                <Col>
+                  <div>Talents</div>
+                  <div className="text-white-50">{volunteer?.talents}</div>
                 </Col>
               </Row>
             </Card.Text>

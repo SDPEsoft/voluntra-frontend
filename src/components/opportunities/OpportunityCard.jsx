@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import React from "react";
 import { Card, Stack } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -12,15 +13,13 @@ const OpportunityCard = ({ opportunity }) => {
       >
         <Card bg="dark" text="white" style={{ height: "100%" }}>
           <Card.Body>
-            <Card.Title className="text-left ">
-              {opportunity?.name}
-            </Card.Title>
+            <Card.Title className="text-left ">{opportunity?.title}</Card.Title>
             <Card.Text className="my-3">
               <Stack direction="vertical" gap={1}>
                 <Stack direction="horizontal" gap={3} className="pb-2">
                   <img
                     src={
-                      opportunity?.organization?.logo ||
+                      opportunity?.organizationEntity?.logo ||
                       "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
                     }
                     class="rounded-circle"
@@ -28,7 +27,10 @@ const OpportunityCard = ({ opportunity }) => {
                     alt="Avatar"
                   />
                   <div>
-                    <div>{opportunity?.organization?.name}</div>
+                    <div>{opportunity?.organizationEntity?.username}</div>
+                    <div className="text-secondary">
+                      {opportunity?.organizationEntity?.email}
+                    </div>
                   </div>
                 </Stack>
                 <Stack
@@ -36,16 +38,18 @@ const OpportunityCard = ({ opportunity }) => {
                   gap={3}
                   className="d-flex justify-content-between align-items-center border-bottom border-secondary"
                 >
-                  <div>Date : </div>
-                  <div>{opportunity?.date}</div>
+                  <div>Start : </div>
+                  <div>
+                    {format(opportunity?.startDate, "dd/MM/yyyy HH:mm")}
+                  </div>
                 </Stack>
                 <Stack
                   direction="horizontal"
                   gap={3}
                   className="d-flex justify-content-between align-items-center border-bottom border-secondary"
                 >
-                  <div>Time : </div>
-                  <div>{opportunity?.time}</div>
+                  <div>End : </div>
+                  <div>{format(opportunity?.endDate, "dd/MM/yyyy HH:mm")}</div>
                 </Stack>
                 <Stack
                   direction="horizontal"
@@ -53,24 +57,24 @@ const OpportunityCard = ({ opportunity }) => {
                   className="d-flex justify-content-between align-items-center border-bottom border-secondary"
                 >
                   <div>Venue : </div>
-                  <div>{opportunity?.venue}</div>
+                  <div>{opportunity?.location}</div>
                 </Stack>
+
                 <Stack
-                  direction="vertical"
-                  className="border-bottom border-secondary"
+                  direction="horizontal"
+                  gap={3}
+                  className="d-flex justify-content-between align-items-center border-bottom border-secondary"
                 >
-                  <div>Location Link : </div>
-                  <Link target="_blank" to={opportunity?.location_link}>
-                    {opportunity?.location_link}
-                  </Link>
+                  <div>Type : </div>
+                  <div>{opportunity?.type}</div>
                 </Stack>
                 <Stack
                   direction="horizontal"
                   gap={3}
                   className="d-flex justify-content-between align-items-center border-bottom border-secondary"
                 >
-                  <div>Attendies : </div>
-                  <div>{opportunity?.attendies}</div>
+                  <div>Objectives : </div>
+                  <div>{opportunity?.objectives}</div>
                 </Stack>
                 <Stack direction="vertical">
                   <div>Description : </div>

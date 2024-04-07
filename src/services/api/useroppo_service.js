@@ -3,7 +3,7 @@ import axios from "axios";
 export const registerForOpportunity = async (data) => {
   try {
     const response = await axios.post(
-      `${process.env.BACKEND_BASE_URL}/useroppos`,
+      `${process.env.REACT_APP_BACKEND_BASE_URL}/useroppos`,
       data
     );
     return response;
@@ -16,7 +16,7 @@ export const registerForOpportunity = async (data) => {
 export const getAllUseroppos = async () => {
   try {
     const response = await axios.get(
-      `${process.env.BACKEND_BASE_URL}/useroppos`
+      `${process.env.REACT_APP_BACKEND_BASE_URL}/useroppos`
     );
     return response;
   } catch (error) {
@@ -27,7 +27,7 @@ export const getAllUseroppos = async () => {
 
 export const getAllVolunteers = async () => {
   try {
-    const response = await axios.get(`${process.env.BACKEND_BASE_URL}/users`);
+    const response = await axios.get(`${process.env.REACT_APP_BACKEND_BASE_URL}/users`);
     return response;
   } catch (error) {
     console.log("Error: while getting all volunteers", error);
@@ -38,7 +38,7 @@ export const getAllVolunteers = async () => {
 export const getAllOpportunities = async () => {
   try {
     const response = await axios.get(
-      `${process.env.BACKEND_BASE_URL}/opportunities`
+      `${process.env.REACT_APP_BACKEND_BASE_URL}/opportunities`
     );
     return response;
   } catch (error) {
@@ -50,7 +50,7 @@ export const getAllOpportunities = async () => {
 export const getUserOpposByVol = async (id) => {
   try {
     const response = await axios.get(
-      `${process.env.BACKEND_BASE_URL}/users/${id}/useroppos`
+      `${process.env.REACT_APP_BACKEND_BASE_URL}/users/${id}/useroppos`
     );
     return response;
   } catch (error) {
@@ -62,7 +62,7 @@ export const getUserOpposByVol = async (id) => {
 export const getUserOpposByOppo = async (id) => {
   try {
     const response = await axios.get(
-      `${process.env.BACKEND_BASE_URL}/opportunities/${id}/useroppos`
+      `${process.env.REACT_APP_BACKEND_BASE_URL}/opportunities/${id}/useroppos`
     );
     return response;
   } catch (error) {
@@ -74,7 +74,7 @@ export const getUserOpposByOppo = async (id) => {
 export const getUseropposById = async (id) => {
   try {
     const response = await axios.get(
-      `${process.env.BACKEND_BASE_URL}/useroppos/${id}`
+      `${process.env.REACT_APP_BACKEND_BASE_URL}/useroppos/${id}`
     );
     return response;
   } catch (error) {
@@ -86,7 +86,7 @@ export const getUseropposById = async (id) => {
 export const deleteUseroppo = async (id) => {
   try {
     const response = await axios.delete(
-      `${process.env.BACKEND_BASE_URL}/useroppos/${id}`
+      `${process.env.REACT_APP_BACKEND_BASE_URL}/useroppos/${id}`
     );
     return response;
   } catch (error) {

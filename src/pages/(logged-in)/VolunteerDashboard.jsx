@@ -24,16 +24,10 @@ const info = [
     href: "/volunteers",
   },
   {
-    heading: "Trainig Seesions",
-    count: "5",
-    description: "View Trainig Seesions",
-    href: "/trainings",
-  },
-  {
     heading: "Organizations Announcements",
     count: "5",
-    description: "View Organizations events",
-    href: "/events",
+    description: "View announcements",
+    href: "/announcements",
   },
 ];
 

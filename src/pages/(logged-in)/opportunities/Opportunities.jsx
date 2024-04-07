@@ -1,69 +1,60 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavigationBar from "../../../components/layouts/Navbar";
 import Footer from "../../../components/layouts/Footer";
-import { Container, Row, Col, FormControl, Button } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  FormControl,
+  Button,
+  Form,
+} from "react-bootstrap";
 import OpportunityCard from "../../../components/opportunities/OpportunityCard";
 import { Outlet } from "react-router-dom";
 import PaginationComponent from "../../../components/common/PaginationComponent";
 import { IoAddOutline } from "react-icons/io5";
 import { OpportunitiesAddModal } from "../../../components/opportunities/Modal";
-
-const opportunities = [
-  {
-    id: 1,
-    name: "Beach Cleaning",
-    description: "Opportunity 1 description",
-    venue: "BMICH",
-    location_link: "https://www.google.com/maps",
-    date: "12-05-2024",
-    time: "10:00 AM",
-    attendies: 100,
-    organization: {
-      id: 1,
-      name: "Rotary Club",
-      logo_url: "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp",
-    },
-  },
-  {
-    id: 2,
-    name: "Opportunity 2",
-    description: "Opportunity 2 description",
-    venue: "BMICH",
-    location_link: "https://www.google.com/maps",
-    date: "12-05-2024",
-    time: "10:00 AM",
-    attendies: 100,
-    organization: {
-      id: 1,
-      name: "Organization 1",
-      logo_url: "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp",
-    },
-  },
-  {
-    id: 3,
-    name: "Opportunity 3",
-    description: "Opportunity 3 description",
-    venue: "BMICH",
-    location_link: "https://www.google.com/maps",
-    date: "12-05-2024",
-    time: "10:00 AM",
-    attendies: 100,
-    organization: {
-      id: 2,
-      name: "Organization 2",
-      logo_url: "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp",
-    },
-  },
-];
+import {
+  getAllOpportunities,
+  getOpportunitiesByOrganization,
+} from "../../../services/api/opportunity_service";
+import { useAuth } from "../../../components/auth/AuthProvider";
 
 const Opportunities = () => {
+  const { user } = useAuth();
   const [page, setPage] = React.useState(1);
   const [itemsPerPage, setItemsPerPage] = React.useState(10);
   const [currentPage, setCurrentPage] = React.useState(1);
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [opportunities, setOpportunities] = React.useState();
   const [addModalShow, setAddModalShow] = React.useState(false);
+  const [isAll, setIsAll] = React.useState(true);
 
   const handleAddModalClose = () => setAddModalShow(false);
   const handleAddModalShow = () => setAddModalShow(true);
+
+  const fetchAllOpportunities = async () => {
+    setIsLoading(true);
+    const response = await getAllOpportunities();
+    setOpportunities(response.data);
+    console.log(response);
+  };
+
+  const fetchOpportunitiesByOrganization = async () => {
+    setIsLoading(true);
+    const response = await getOpportunitiesByOrganization(1);
+    setOpportunities(response.data);
+    console.log(response);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    if (isAll) {
+      fetchAllOpportunities();
+    } else {
+      fetchOpportunitiesByOrganization();
+    }
+  }, [isAll]);
   return (
     <>
       <div>
@@ -88,8 +79,30 @@ const Opportunities = () => {
               </Button>
             </div>
           </div>
+
+          {user?.role === "organization" && (
+            <div className="mb-4">
+              <Form.Check
+                inline
+                label="All"
+                name="all"
+                type="radio"
+                checked={isAll}
+                onChange={() => setIsAll(true)}
+              />
+              <Form.Check
+                inline
+                label="Own"
+                name="all"
+                type="radio"
+                checked={!isAll}
+                onChange={() => setIsAll(false)}
+              />
+            </div>
+          )}
+
           <Row>
-            {opportunities.map((opportunity, i) => (
+            {opportunities?.map((opportunity, i) => (
               <Col xs={12} md={6} lg={4} xl={3} className="mb-4">
                 <OpportunityCard key={i} opportunity={opportunity} />
               </Col>
@@ -107,7 +120,10 @@ const Opportunities = () => {
         </Container>
         <Footer />
       </div>
-      <OpportunitiesAddModal show={addModalShow} handleClose={handleAddModalClose} />
+      <OpportunitiesAddModal
+        show={addModalShow}
+        handleClose={handleAddModalClose}
+      />
     </>
   );
 };

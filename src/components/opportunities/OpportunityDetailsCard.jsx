@@ -10,6 +10,7 @@ import {
 } from "react-bootstrap";
 import { IoLocation, IoLocationOutline } from "react-icons/io5";
 import { OpportunitiesCancelModal, OpportunitiesRegisterModal } from "./Modal";
+import { format } from "date-fns";
 
 const OpportunityDetailsCard = ({ id, opportunity }) => {
   const [registerModalShow, setRegisterModalShow] = useState(false);
@@ -26,7 +27,7 @@ const OpportunityDetailsCard = ({ id, opportunity }) => {
         <Card bg="dark" text="white">
           <Card.Body>
             <Card.Title className="fs-2 d-flex justify-content-between align-items-center">
-              <div>{opportunity?.name}</div>
+              <div>{opportunity?.title}</div>
               <div className="d-flex gap-2">
                 <Button variant="light" onClick={handleRegisterModalShow}>
                   Register
@@ -40,13 +41,13 @@ const OpportunityDetailsCard = ({ id, opportunity }) => {
               </div>
             </Card.Title>
             <Card.Subtitle className="mb-2 pb-2 text-secondary border-bottom border-secondary">
-              Organizing By {opportunity?.organization?.name}
+              Organizing By {opportunity?.organizationEntity?.username}
             </Card.Subtitle>
             <Card.Text className="border-bottom border-secondary p-3">
-            <div className="d-flex flex-wrap justify-content-left align-items-center gap-3">
+              <div className="d-flex flex-wrap justify-content-left align-items-center gap-3">
                 <img
                   src={
-                    opportunity?.organization?.logo ||
+                    opportunity?.organizationEntity?.logo ||
                     "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
                   }
                   class="rounded-circle"
@@ -55,30 +56,68 @@ const OpportunityDetailsCard = ({ id, opportunity }) => {
                 />
                 <div>
                   <div className="fs-4">
-                    {opportunity?.organization?.name}
+                    {opportunity?.organizationEntity?.username}
                     <br />
-                    <span className="text-secondary">rotary@rotary.lk</span>
+                    <span className="text-secondary">
+                      {opportunity?.organizationEntity?.email}
+                    </span>
                   </div>
                 </div>
               </div>
               <Row direction="horizontal">
-                <Col xs={12} md={6} direction="vertical" gap={1} className="mt-3">
-                  <div className="fw-bold">Date </div>
-                  <div>{opportunity?.date}</div>
+                <Col
+                  xs={12}
+                  md={6}
+                  direction="vertical"
+                  gap={1}
+                  className="mt-3"
+                >
+                  <div className="fw-bold">Start </div>
+                  <div>
+                    {opportunity?.startDate &&
+                      format(opportunity?.startDate, "dd/MM/yyyy HH:mm")}
+                  </div>
                 </Col>
-                <Col xs={12} md={6} direction="vertical" gap={1} className="mt-3">
-                  <div className="fw-bold">Time </div>
-                  <div>{opportunity?.time}</div>
+                <Col
+                  xs={12}
+                  md={6}
+                  direction="vertical"
+                  gap={1}
+                  className="mt-3"
+                >
+                  <div className="fw-bold">End </div>
+                  <div>
+                    {opportunity?.endDate &&
+                      format(opportunity?.endDate, "dd/MM/yyyy HH:mm")}
+                  </div>
                 </Col>
               </Row>
               <Row direction="horizontal">
-                <Col xs={12} md={6} direction="vertical" gap={1} className="mt-3">
+                <Col
+                  xs={12}
+                  md={6}
+                  direction="vertical"
+                  gap={1}
+                  className="mt-3"
+                >
                   <div className="fw-bold">Venue </div>
-                  <div>{opportunity?.venue}</div>
+                  <div>{opportunity?.location}</div>
                 </Col>
-                <Col xs={12} md={6} direction="vertical" gap={1} className="mt-3">
-                  <div className="fw-bold">Attendies </div>
-                  <div>{opportunity?.attendies}</div>
+                <Col
+                  xs={12}
+                  md={6}
+                  direction="vertical"
+                  gap={1}
+                  className="mt-3"
+                >
+                  <div className="fw-bold">Type </div>
+                  <div>{opportunity?.type}</div>
+                </Col>
+              </Row>
+              <Row className="mt-3">
+                <Col>
+                  <div className="fw-bold">Objectives </div>
+                  <div>{opportunity?.description}</div>
                 </Col>
               </Row>
               <Row className="mt-3">

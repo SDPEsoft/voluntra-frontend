@@ -2,10 +2,11 @@ import React from "react";
 import { Card, Stack } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Rating from "../common/Rating";
+import { format } from "date-fns";
 
 const VolunteerCard = ({ volunteer }) => {
   return (
-    <div>
+    <div className=" h-100">
       <Link
         to={`/volunteers/${volunteer?.id}`}
         className="text-decoration-none"
@@ -25,10 +26,10 @@ const VolunteerCard = ({ volunteer }) => {
                     alt="Avatar"
                   />
                   <div>
-                    <div>{volunteer?.name}</div>
+                    <div>{volunteer?.username}</div>
                     <div className="text-secondary">{volunteer?.email}</div>
                     <div>
-                      <Rating rating={volunteer?.rating} />
+                      <Rating id={volunteer?.id} />
                     </div>
                   </div>
                 </Stack>
@@ -38,7 +39,7 @@ const VolunteerCard = ({ volunteer }) => {
                   className="d-flex justify-content-between align-items-center border-bottom border-secondary"
                 >
                   <div>Phone Number : </div>
-                  <div>{volunteer?.phone_no}</div>
+                  <div>{volunteer?.phoneno}</div>
                 </Stack>
                 <Stack
                   direction="vertical"
@@ -53,11 +54,19 @@ const VolunteerCard = ({ volunteer }) => {
                   className="d-flex justify-content-between align-items-center border-bottom border-secondary"
                 >
                   <div>DOB : </div>
-                  <div>{volunteer?.dob}</div>
+                  <div>{volunteer?.dob && format(volunteer?.dob,"dd/MM/yyyy")}</div>
                 </Stack>
                 <Stack direction="vertical">
-                  <div>Description : </div>
-                  <div className="text-white-50">{volunteer?.description}</div>
+                  <div>Interests : </div>
+                  <div className="text-white-50">{volunteer?.interests}</div>
+                </Stack>
+                <Stack direction="vertical">
+                  <div>Abilities : </div>
+                  <div className="text-white-50">{volunteer?.abilities}</div>
+                </Stack>
+                <Stack direction="vertical">
+                  <div>Talents : </div>
+                  <div className="text-white-50">{volunteer?.talents}</div>
                 </Stack>
               </Stack>
             </Card.Text>

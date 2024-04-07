@@ -1,67 +1,107 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NavigationBar from "../../../components/layouts/Navbar";
 import Footer from "../../../components/layouts/Footer";
-import { Container, Row, Col, FormControl } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  FormControl,
+  Button,
+  Form,
+} from "react-bootstrap";
 import { Outlet } from "react-router-dom";
 import PaginationComponent from "../../../components/common/PaginationComponent";
 import AnnouncementCard from "../../../components/announcements/AnnouncementCard";
-
-const announcements = [
-  {
-    id: 1,
-    name: "Jhon Smith",
-    email: "jhonsmith@gmail.com",
-    phone_no: "0771234567",
-    logo_url: "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp",
-    description: "Volunteer 1 description",
-    address: "Colombo 03.",
-    dob: "12-05-2024",
-    rating: 3,
-  },
-  {
-    id: 2,
-    name: "Kale Williams",
-    email: "kale@gmail.com",
-    phone_no: "0771234567",
-    logo_url: "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp",
-    description: "Volunteer 2 description",
-    address: "Colombo 03.",
-    dob: "12-05-2024",
-    rating: 2,
-  },
-  {
-    id: 3,
-    name: "kushan Perera",
-    email: "kushan@gmail.com",
-    phone_no: "0771234567",
-    logo_url: "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp",
-    description: "Volunteer 3 description",
-    address: "Colombo 03.",
-    dob: "12-05-2024",
-    rating: 4,
-  },
-];
+import {
+  getAllAnnouncements,
+  getAnnouncementsByOrganization,
+} from "../../../services/api/announcement_service";
+import { IoAddOutline } from "react-icons/io5";
+import { AnnouncementAddModal } from "../../../components/announcements/Modal";
+import { useAuth } from "../../../components/auth/AuthProvider";
 
 const Announcements = () => {
+  const { user } = useAuth();
   const [page, setPage] = React.useState(1);
   const [itemsPerPage, setItemsPerPage] = React.useState(10);
   const [currentPage, setCurrentPage] = React.useState(1);
+  const [announcements, setAnnouncements] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [addModalShow, setAddModalShow] = React.useState(false);
+  const [isAll, setIsAll] = React.useState(true);
+
+  const handleAddModalClose = () => setAddModalShow(false);
+  const handleAddModalShow = () => setAddModalShow(true);
+
+  const fetchAllAnnouncements = async () => {
+    setIsLoading(true);
+    const response = await getAllAnnouncements();
+    setAnnouncements(response.data);
+    console.log(response);
+  };
+
+  const fetchAnnouncementsByOrganization = async () => {
+    setIsLoading(true);
+    const response = await getAnnouncementsByOrganization(5);
+    setAnnouncements(response.data);
+    console.log(response);
+  };
+
+  useEffect(() => {
+    if (isAll) {
+      fetchAllAnnouncements();
+    } else {
+      fetchAnnouncementsByOrganization();
+    }
+  }, [isAll]);
+
   return (
     <div>
       <NavigationBar />
       <Container className="mt-5">
-        <div className="mb-4 d-flex justify-content-between align-items-center">
+        <div className="mb-4 d-flex flex-column flex-sm-row justify-content-between align-items-center">
           <div className="h3 fw-bold">Announcements</div>
-          <FormControl
-            type="search"
-            placeholder="Search Announcements"
-            className="me-2 w-25"
-            aria-label="Search"
-          />
+          <div className="d-flex flex-sm-row w-sm-50 w-md-25 justify-content-between align-items-center gap-2">
+            <FormControl
+              type="search"
+              placeholder="Search announcements"
+              className="w-100"
+              aria-label="Search"
+            />
+            <Button
+              variant="dark"
+              className="d-flex justify-content-between align-items-center gap-1"
+              onClick={handleAddModalShow}
+            >
+              <IoAddOutline size={20} />
+              ADD
+            </Button>
+          </div>
         </div>
+        {user.role === "organization" && (
+          <div className="mb-4">
+            <Form.Check
+              inline
+              label="All"
+              name="all"
+              type="radio"
+              checked={isAll}
+              onChange={() => setIsAll(true)}
+            />
+            <Form.Check
+              inline
+              label="Own"
+              name="all"
+              type="radio"
+              checked={!isAll}
+              onChange={() => setIsAll(false)}
+            />
+          </div>
+        )}
+
         <Row>
-          {announcements.map((announcement, i) => (
-            <Col xs={12} md={6} lg={4} xl={3} className="mb-4">
+          {announcements?.map((announcement, i) => (
+            <Col key={i} xs={12} md={6} lg={4} xl={3} className="mb-4">
               <AnnouncementCard key={i} announcement={announcement} />
             </Col>
           ))}
@@ -73,11 +113,14 @@ const Announcements = () => {
           setItemsPerPage={setItemsPerPage}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
-          totalItems={announcements.length}
+          totalItems={announcements?.length}
         />
       </Container>
       <Footer />
-      <Outlet />
+      <AnnouncementAddModal
+        show={addModalShow}
+        handleClose={handleAddModalClose}
+      />
     </div>
   );
 };

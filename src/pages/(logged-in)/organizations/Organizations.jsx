@@ -1,52 +1,68 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavigationBar from "../../../components/layouts/Navbar";
 import Footer from "../../../components/layouts/Footer";
-import { Container, Row, Col,FormControl } from "react-bootstrap";
+import { Container, Row, Col, FormControl } from "react-bootstrap";
 import OpportunityCard from "../../../components/opportunities/OpportunityCard";
 import { Outlet } from "react-router-dom";
 import OrganizationCard from "../../../components/organizations/OrganizationCard";
 import PaginationComponent from "../../../components/common/PaginationComponent";
+import { getAllOrganizations } from "../../../services/api/organization.service";
 
-const organizations = [
-  {
-    id: 1,
-    name: "Rotary Club",
-    email: "info@organization.com",
-    logo_url: "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp",
-    description: "Organization 1 description",
-    address: "Colombo 03.",
-    start_date: "12-05-2024",
-    members_count: 100,
-    rating: 3,
-  },
-  {
-    id: 2,
-    name: "Organization 2",
-    email: "info@organization.com",
-    logo_url: "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp",
-    description: "Organization 2 description",
-    address: "Colombo 03.",
-    start_date: "12-05-2024",
-    members_count: 100,
-    rating: 2,
-  },
-  {
-    id: 3,
-    name: "Organization 3",
-    email: "info@organization.com",
-    logo_url: "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp",
-    description: "Organization 3 description",
-    address: "Colombo 03.",
-    start_date: "12-05-2024",
-    members_count: 100,
-    rating: 4,
-  },
-];
+// const organizations = [
+//   {
+//     id: 1,
+//     name: "Rotary Club",
+//     email: "info@organization.com",
+//     logo_url: "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp",
+//     description: "Organization 1 description",
+//     address: "Colombo 03.",
+//     start_date: "12-05-2024",
+//     members_count: 100,
+//     rating: 3,
+//   },
+//   {
+//     id: 2,
+//     name: "Organization 2",
+//     email: "info@organization.com",
+//     logo_url: "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp",
+//     description: "Organization 2 description",
+//     address: "Colombo 03.",
+//     start_date: "12-05-2024",
+//     members_count: 100,
+//     rating: 2,
+//   },
+//   {
+//     id: 3,
+//     name: "Organization 3",
+//     email: "info@organization.com",
+//     logo_url: "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp",
+//     description: "Organization 3 description",
+//     address: "Colombo 03.",
+//     start_date: "12-05-2024",
+//     members_count: 100,
+//     rating: 4,
+//   },
+// ];
 
 const Organizations = () => {
-    const [page, setPage] = React.useState(1);
+  const [organizations, setOrganizations] = React.useState();
+  const [page, setPage] = React.useState(1);
   const [itemsPerPage, setItemsPerPage] = React.useState(10);
   const [currentPage, setCurrentPage] = React.useState(1);
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  const fetchOrganizations = async() => {
+    setIsLoading(true);
+    const response =await getAllOrganizations();
+    setOrganizations(response.data);
+    console.log(response);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchOrganizations();
+  }, []);
+
   return (
     <div>
       <NavigationBar />
@@ -61,13 +77,21 @@ const Organizations = () => {
           />
         </div>
         <Row>
-          {organizations.map((organization, i) => (
+          {organizations?.map((organization, key) => (
             <Col xs={12} md={6} lg={4} xl={3} className="mb-4">
-              <OrganizationCard key={i} organization={organization} />
+              <OrganizationCard key={key} organization={organization} />
             </Col>
           ))}
         </Row>
-        <PaginationComponent page={page} setPage={setPage} itemsPerPage={itemsPerPage} setItemsPerPage={setItemsPerPage} currentPage={currentPage} setCurrentPage={setCurrentPage} totalItems={organizations.length} />
+        <PaginationComponent
+          page={page}
+          setPage={setPage}
+          itemsPerPage={itemsPerPage}
+          setItemsPerPage={setItemsPerPage}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalItems={organizations?.length}
+        />
       </Container>
       <Footer />
       <Outlet />

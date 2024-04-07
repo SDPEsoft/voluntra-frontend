@@ -3,6 +3,8 @@ import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 import { IoMail } from "react-icons/io5";
 import { FaPhone } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
+import { MdDescription } from "react-icons/md";
 import {
   Container,
   Form,
@@ -10,26 +12,73 @@ import {
   Col,
   FloatingLabel,
   Button,
+  Spinner,
 } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { updateToast } from "../../redux/toast";
+import { useNavigate } from "react-router-dom";
+import { createVolunteer } from "../../services/api/volunteer.service";
 
 const VolunteerSignup = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [validated, setValidated] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [address, setAddress] = useState("");
+  const [dob, setDob] = useState("");
+  const [interests, setInterests] = useState("");
+  const [talents, setTalents] = useState("");
+  const [abilities, setAbilities] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
+    setIsLoading(true);
+    setValidated(true);
     const form = event.currentTarget;
     event.preventDefault();
     if (form.checkValidity() === false) {
       event.stopPropagation();
     } else {
-      console.log("email", email);
-      console.log("password", password);
+      const data = {
+        username: username,
+        email: email,
+        password: password,
+        address: address,
+        phoneno: phoneNo,
+        dob: dob,
+        interests: interests,
+        abilities: abilities,
+        talents: talents,
+      };
+      const response = await createVolunteer(data);
+
+      dispatch(
+        updateToast({
+          show: "true",
+          message:
+            response.status === 200 || response.status === 201
+              ? "Successfully Signed Up"
+              : response.response.data || "Something went wrong",
+          status:
+            response.status === 200 || response.status === 201
+              ? "success"
+              : "error",
+          variant:
+            response.status === 200 || response.status === 201
+              ? "success"
+              : "danger",
+        })
+      );
+
+      if (response.status === 200 || response.status === 201) {
+        navigate("/volunteer/signin");
+      }
     }
-    setValidated(true);
+    setIsLoading(false);
   };
   return (
     <Container className="d-flex justify-content-center align-items-center min-vh-100">
@@ -44,14 +93,8 @@ const VolunteerSignup = () => {
             Volunteer Signup
           </div>
         </Row>
-        <Row className="mb-2">
-          <Form.Group
-            as={Col}
-            sm="8"
-            md="4"
-            controlId="validationUsername"
-            className="mx-auto"
-          >
+        <Row className="mb-2 d-flex justify-content-center">
+          <Form.Group as={Col} sm="8" md="4" controlId="validationUsername">
             <FloatingLabel
               controlId="floatingUsername"
               label={
@@ -74,15 +117,8 @@ const VolunteerSignup = () => {
               </Form.Control.Feedback>
             </FloatingLabel>
           </Form.Group>
-        </Row>
-        <Row className="mb-2">
-          <Form.Group
-            as={Col}
-            sm="8"
-            md="4"
-            controlId="validationEmail"
-            className="mx-auto"
-          >
+
+          <Form.Group as={Col} sm="8" md="4" controlId="validationEmail">
             <FloatingLabel
               controlId="floatingEmail"
               label={
@@ -106,14 +142,9 @@ const VolunteerSignup = () => {
             </FloatingLabel>
           </Form.Group>
         </Row>
-        <Row className="mb-2">
-          <Form.Group
-            as={Col}
-            sm="8"
-            md="4"
-            controlId="validationPhoneNumber"
-            className="mx-auto"
-          >
+
+       <Row className="mb-2 d-flex justify-content-center">
+          <Form.Group as={Col} sm="8" md="4" controlId="validationPhoneNumber">
             <FloatingLabel
               controlId="floatingPhoneNumber"
               label={
@@ -136,15 +167,136 @@ const VolunteerSignup = () => {
               </Form.Control.Feedback>
             </FloatingLabel>
           </Form.Group>
+
+          <Form.Group as={Col} sm="8" md="4" controlId="validationAddress">
+            <FloatingLabel
+              controlId="floatingAddress"
+              label={
+                <div className="d-flex align-items-center gap-2">
+                  <FaLocationDot />
+                  Address
+                </div>
+              }
+              className="mb-2"
+            >
+              <Form.Control
+                required
+                type="text"
+                placeholder="Address"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+              />
+              <Form.Control.Feedback type="invalid">
+                Please enter a valid address.
+              </Form.Control.Feedback>
+            </FloatingLabel>
+          </Form.Group>
         </Row>
-        <Row className="mb-2">
-          <Form.Group
-            as={Col}
-            sm="8"
-            md="4"
-            controlId="validationPassword"
-            className="mx-auto"
-          >
+
+       <Row className="mb-2 d-flex justify-content-center">
+          <Form.Group as={Col} sm="8" md="4" controlId="validationAddress">
+            <FloatingLabel
+              controlId="floatingAddress"
+              label={
+                <div className="d-flex align-items-center gap-2">
+                  Date Of Birth
+                </div>
+              }
+              className="mb-2"
+            >
+              <Form.Control
+                required
+                type="date"
+                placeholder="Date Of Birth"
+                value={dob}
+                onChange={(e) => setDob(e.target.value)}
+              />
+              <Form.Control.Feedback type="invalid">
+                Please enter a valid address.
+              </Form.Control.Feedback>
+            </FloatingLabel>
+          </Form.Group>
+
+          <Form.Group as={Col} sm="8" md="4" controlId="validationAddress">
+            <FloatingLabel
+              controlId="floatingAddress"
+              label={
+                <div className="d-flex align-items-center gap-2">
+                  <MdDescription />
+                  Interests
+                </div>
+              }
+              className="mb-2"
+            >
+              <Form.Control
+                as="textarea"
+                rows={3}
+                required
+                placeholder="Interests"
+                value={interests}
+                onChange={(e) => setInterests(e.target.value)}
+              />
+              <Form.Control.Feedback type="invalid">
+                Please enter a valid interests.
+              </Form.Control.Feedback>
+            </FloatingLabel>
+          </Form.Group>
+        </Row>
+
+       <Row className="mb-2 d-flex justify-content-center">
+          <Form.Group as={Col} sm="8" md="4" controlId="validationAddress">
+            <FloatingLabel
+              controlId="floatingAddress"
+              label={
+                <div className="d-flex align-items-center gap-2">
+                  <MdDescription />
+                  Abilities
+                </div>
+              }
+              className="mb-2"
+            >
+              <Form.Control
+                as="textarea"
+                rows={3}
+                required
+                placeholder="Abilities"
+                value={abilities}
+                onChange={(e) => setAbilities(e.target.value)}
+              />
+              <Form.Control.Feedback type="invalid">
+                Please enter a valid abilities.
+              </Form.Control.Feedback>
+            </FloatingLabel>
+          </Form.Group>
+
+          <Form.Group as={Col} sm="8" md="4" controlId="validationAddress">
+            <FloatingLabel
+              controlId="floatingAddress"
+              label={
+                <div className="d-flex align-items-center gap-2">
+                  <MdDescription />
+                  Talents
+                </div>
+              }
+              className="mb-2"
+            >
+              <Form.Control
+                as="textarea"
+                rows={3}
+                required
+                placeholder="Talents"
+                value={talents}
+                onChange={(e) => setTalents(e.target.value)}
+              />
+              <Form.Control.Feedback type="invalid">
+                Please enter a valid talents.
+              </Form.Control.Feedback>
+            </FloatingLabel>
+          </Form.Group>
+        </Row>
+
+       <Row className="mb-2 d-flex justify-content-center">
+          <Form.Group as={Col} sm="8" md="4" controlId="validationPassword">
             <FloatingLabel
               controlId="floatingPassword"
               label={
@@ -167,15 +319,12 @@ const VolunteerSignup = () => {
               </Form.Control.Feedback>
             </FloatingLabel>
           </Form.Group>
-        </Row>
 
-        <Row className="mb-2">
           <Form.Group
             as={Col}
             sm="8"
             md="4"
             controlId="validationConfirmPassword"
-            className="mx-auto"
           >
             <FloatingLabel
               controlId="floatingConfirmPassword"
@@ -200,9 +349,25 @@ const VolunteerSignup = () => {
             </FloatingLabel>
           </Form.Group>
         </Row>
-        <Row>
-          <Form.Group as={Col} sm="8" md="4" className="mx-auto">
-            <Button variant="dark" size="lg" type="submit" className="w-100">
+
+        <Row className="mb-2 d-flex justify-content-center">
+          <Form.Group as={Col} sm="8" md="8">
+            <Button
+              variant="dark"
+              size="lg"
+              type="submit"
+              className="w-100 d-flex align-items-center justify-content-center gap-2"
+              disabled={isLoading}
+            >
+              {isLoading && (
+                <Spinner
+                  as="span"
+                  animation="border"
+                  role="status"
+                  aria-hidden="true"
+                  style={{ width: "25px", height: "25px" }}
+                />
+              )}
               Sign Up
             </Button>
           </Form.Group>

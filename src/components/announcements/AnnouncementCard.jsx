@@ -2,6 +2,7 @@ import React from "react";
 import { Card, Stack } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Rating from "../common/Rating";
+import { format } from "date-fns";
 
 const AnnouncementCard = ({ announcement }) => {
   return (
@@ -25,39 +26,34 @@ const AnnouncementCard = ({ announcement }) => {
                     alt="Avatar"
                   />
                   <div>
-                    <div>{announcement?.name}</div>
-                    <div className="text-secondary">{announcement?.email}</div>
-                    <div>
-                      <Rating rating={announcement?.rating} />
+                    <div>{announcement?.organizationEntity?.username}</div>
+                    <div className="text-secondary">
+                      {announcement?.organizationEntity?.email}
                     </div>
                   </div>
                 </Stack>
+
                 <Stack
                   direction="horizontal"
                   gap={3}
                   className="d-flex justify-content-between align-items-center border-bottom border-secondary"
                 >
-                  <div>Phone Number : </div>
-                  <div>{announcement?.phone_no}</div>
-                </Stack>
-                <Stack
-                  direction="vertical"
-                  className="border-bottom border-secondary"
-                >
-                  <div>Address : </div>
-                  <div> {announcement?.address}</div>
+                  <div>Message : </div>
+                  <div>{announcement?.message}</div>
                 </Stack>
                 <Stack
                   direction="horizontal"
                   gap={3}
                   className="d-flex justify-content-between align-items-center border-bottom border-secondary"
                 >
-                  <div>DOB : </div>
-                  <div>{announcement?.dob}</div>
+                  <div>Created At : </div>
+                  <div>{announcement?.date && format(announcement?.date, "dd/MM/yyyy HH:mm")}</div>
                 </Stack>
                 <Stack direction="vertical">
                   <div>Description : </div>
-                  <div className="text-white-50">{announcement?.description}</div>
+                  <div className="text-white-50">
+                    {announcement?.description}
+                  </div>
                 </Stack>
               </Stack>
             </Card.Text>

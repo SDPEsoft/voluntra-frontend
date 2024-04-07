@@ -3,7 +3,7 @@ import axios from "axios";
 export const createOpportunity = async (data) => {
   try {
     const response = await axios.post(
-      `${process.env.BACKEND_BASE_URL}/opportunities`,
+      `${process.env.REACT_APP_BACKEND_BASE_URL}/opportunities`,
       data
     );
     return response;
@@ -16,7 +16,7 @@ export const createOpportunity = async (data) => {
 export const getAllOpportunities = async () => {
   try {
     const response = await axios.get(
-      `${process.env.BACKEND_BASE_URL}/opportunities`
+      `${process.env.REACT_APP_BACKEND_BASE_URL}/opportunities`
     );
     return response;
   } catch (error) {
@@ -28,7 +28,7 @@ export const getAllOpportunities = async () => {
 export const updateOpportunity = async (id, data) => {
   try {
     const response = await axios.put(
-      `${process.env.BACKEND_BASE_URL}/opportunities/${id}`,
+      `${process.env.REACT_APP_BACKEND_BASE_URL}/opportunities/${id}`,
       data
     );
     return response;
@@ -41,7 +41,7 @@ export const updateOpportunity = async (id, data) => {
 export const deleteOpportunity = async (id) => {
   try {
     const response = await axios.delete(
-      `${process.env.BACKEND_BASE_URL}/opportunities/${id}`
+      `${process.env.REACT_APP_BACKEND_BASE_URL}/opportunities/${id}`
     );
     return response;
   } catch (error) {
@@ -53,7 +53,7 @@ export const deleteOpportunity = async (id) => {
 export const getOpportunitiesById = async (id) => {
   try {
     const response = await axios.get(
-      `${process.env.BACKEND_BASE_URL}/opportunities/${id}`
+      `${process.env.REACT_APP_BACKEND_BASE_URL}/opportunities/${id}`
     );
     return response;
   } catch (error) {
@@ -65,7 +65,7 @@ export const getOpportunitiesById = async (id) => {
 export const getOpportunitiesByOrganization = async (id) => {
   try {
     const response = await axios.get(
-      `${process.env.BACKEND_BASE_URL}/organizations/${id}/opportunities`
+      `${process.env.REACT_APP_BACKEND_BASE_URL}/organizations/${id}/opportunities`
     );
     return response;
   } catch (error) {
@@ -77,7 +77,7 @@ export const getOpportunitiesByOrganization = async (id) => {
 export const getAllOrganizations = async () => {
   try {
     const response = await axios.get(
-      `${process.env.BACKEND_BASE_URL}/organizations`
+      `${process.env.REACT_APP_BACKEND_BASE_URL}/organizations`
     );
     return response;
   } catch (error) {
