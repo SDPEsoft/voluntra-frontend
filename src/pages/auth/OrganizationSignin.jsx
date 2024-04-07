@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 import {
@@ -70,6 +70,23 @@ const OrganizationSignin = () => {
     }
     setIsLoading(false);
   };
+
+  useEffect(() => {
+    const user =
+      localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
+    if (user?.role) {
+      if (user.role === "admin") {
+        navigate("/admin-dashboard");
+      }
+      if (user.role === "volunteer") {
+        navigate("/volunteer-dashboard");
+      }
+      if (user.role === "organization") {
+        navigate("/organization-dashboard");
+      }
+    }
+  }, []);
+  
   return (
     <Container className="d-flex justify-content-center align-items-center min-vh-100">
       <Form
