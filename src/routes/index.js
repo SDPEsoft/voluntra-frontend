@@ -22,6 +22,7 @@ import Member from "../pages/(logged-in)/organizations/Member";
 import Announcements from "../pages/(logged-in)/announcements/Announcements";
 import Announcement from "../pages/(logged-in)/announcements/Announcement";
 import ProtectedRoute from "../components/auth/ProtectedRoute";
+import Chats from "../pages/(logged-in)/chat/Chats";
 
 export const routes = createBrowserRouter([
   {
@@ -166,4 +167,12 @@ export const routes = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
+  {
+    path: "/chat",
+    element: (
+      <ProtectedRoute>
+        <Chats/>
+      </ProtectedRoute>
+    )
+  }
 ]);

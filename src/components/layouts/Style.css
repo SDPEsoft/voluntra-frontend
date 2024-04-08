@@ -1,0 +1,205 @@
+/* Import Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;700&display=swap");
+
+/* Reset styles */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Titillium Web", sans-serif;
+}
+
+/* Color variables */
+:root {
+    --mainColor: #000000;
+    --mainColorLight: #5767aa;
+    --secondaryColor: #db2b39;
+    --textColor: #eee;
+}
+
+/* Header styles */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    padding: 0 2rem;
+    background-color: var(--mainColor);
+    color: var(--textColor);
+}
+
+/* Navigation styles */
+nav a {
+    margin: 0 1rem;
+    color: var(--textColor);
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: var(--secondaryColor);
+}
+
+header .nav-btn {
+    padding: 5px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--textColor);
+    font-size: 1.8rem;
+}
+
+header div,
+nav {
+    display: flex;
+    align-items: center;
+}
+
+/* Search bar styles */
+.search-bar {
+    display: flex;
+    align-items: center;
+}
+
+.search-bar input[type="text"] {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.search-bar button[type="submit"] {
+    padding: 0.5rem 1rem;
+    margin-left: 0.5rem;
+    border: 1px solid #fff; /* White border */
+    background-color: #000; /* Black background */
+    color: #fff; /* White text */
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.search-bar button[type="submit"]:hover {
+    background-color: #f3eded; /* Background color on hover */
+    color: #000; /* Text color on hover */
+}
+
+/* Responsive styles */
+@media only screen and (max-width: 1024px) {
+    /* Moved responsive styles to the bottom to ensure they override other styles */
+    header .nav-btn {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    header nav {
+        position: fixed;
+        top: 0;
+        right: -100%; /* Start off-screen */
+        height: 100%;
+        width: 250px; /* Adjust width */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+        background-color: var(--mainColor);
+        transition: right 0.5s ease; /* Transition for smooth appearance */
+    }
+
+    header .responsive_nav {
+        right: 0; /* Move navbar into view */
+    }
+
+    nav .nav-close-btn {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+    }
+
+    nav a {
+        font-size: 1.5rem;
+    }
+}
+
+/* Larger screens */
+@media only screen and (min-width: 1025px) {
+    header .nav-btn {
+        display: none; /* Hide burger button on larger screens */
+    }
+
+    header nav {
+        position: static; /* Reset position */
+        width: auto; /* Reset width */
+        height: auto; /* Reset height */
+        flex-direction: row; /* Ensure navigation items are in a row */
+        justify-content: flex-end; /* Align navigation items to the right */
+    }
+
+    nav .nav-close-btn {
+        display: none; /* Hide close button on larger screens */
+    }
+
+    nav a {
+        margin: 0 1rem;
+    }
+
+    /* Footer styles */
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    
+    footer {
+        margin-top: 100px; /* This pushes the footer to the bottom */
+        background-color: #000000; /* Change background color as needed */
+        color: #fff; /* Text color */
+        padding: 20px;
+    }
+    
+    .footer-top {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-top h4 {
+        margin: 0;
+    }
+
+    .social-icons {
+        display: flex;
+        align-items: center;
+    }
+
+    .social-icons a {
+        margin-right: 10px;
+    }
+
+    .footer-links {
+        text-align: center;
+        margin-top: 20px; /* Adjust as needed */
+    }
+
+    .footer-links a {
+        color: #fff;
+        text-decoration: none;
+        margin-right: 10px;
+    }
+
+    .footer-links a:hover {
+        color: #db2b39; /* Hover color */
+    }
+
+    .copyright {
+        text-align: center;
+        margin-top: 20px; /* Adjust as needed */
+    }
+
+    .voluntra-text {
+        margin-top: 20px; /* Adjust as needed */
+    }
+
+    .social-icons {
+        margin-top: 20px; /* Adjust as needed */
+    }
+}
