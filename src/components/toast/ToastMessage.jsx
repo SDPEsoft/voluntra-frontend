@@ -19,7 +19,7 @@ const ToastMessage = () => {
       onClose={handleClose}
       show={toastState.show === "true"}
       bg={toastState.variant}
-      style={{ position: "fixed", top: "10px", right: "10px", zIndex: "10" }}
+      style={{ position: "fixed", top: "10px", right: "10px", zIndex: "50" }}
     >
       <Toast.Header>
         <strong className="uppercase w-100">

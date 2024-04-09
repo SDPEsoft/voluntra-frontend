@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Container, Card, Row, Col, Button } from "react-bootstrap";
 import Rating from "../common/Rating";
+import { RateModal } from "./Modal";
+import { format } from "date-fns";
 
 const VolunteerDetailsCard = ({ id, volunteer }) => {
-  const [registerModalShow, setRegisterModalShow] = useState(false);
+  const [rateModalShow, setRateModalShow] = useState(false);
 
-  const handleRegisterModalClose = () => setRegisterModalShow(false);
-  const handleRegisterModalShow = () => setRegisterModalShow(true);
+  const handleRateModalClose = () => setRateModalShow(false);
+  const handleRateModalShow = () => setRateModalShow(true);
 
   return (
     <>
@@ -22,23 +24,28 @@ const VolunteerDetailsCard = ({ id, volunteer }) => {
               </div>
             </Card.Title>
             <Card.Text className="border-bottom border-secondary p-3">
-              <div className="d-flex flex-wrap justify-content-left align-items-center gap-3">
-                <img
-                  src={
-                    volunteer?.logo_url ||
-                    "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
-                  }
-                  class="rounded-circle"
-                  width={100}
-                  alt="Avatar"
-                />
-                <div>
-                  <div className="fs-4">
-                    {volunteer?.username}
-                    <br />
-                    <span className="text-secondary">{volunteer?.email}</span>
-                    <Rating rating={volunteer?.rating} />
+              <div className="d-flex justify-content-between align-items-start gap-3">
+                <div className="d-flex flex-wrap justify-content-left align-items-center gap-3">
+                  <img
+                    src={
+                      volunteer?.logo_url ||
+                      "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                    }
+                    class="rounded-circle"
+                    width={100}
+                    alt="Avatar"
+                  />
+                  <div>
+                    <div className="fs-4">
+                      {volunteer?.username}
+                      <br />
+                      <span className="text-secondary">{volunteer?.email}</span>
+                      <Rating id={volunteer?.id} />
+                    </div>
                   </div>
+                </div>
+                <div>
+                  <Button onClick={handleRateModalShow} variant="outline-light">Rate</Button>
                 </div>
               </div>
               <Row direction="horizontal">
@@ -54,7 +61,7 @@ const VolunteerDetailsCard = ({ id, volunteer }) => {
               <Row direction="horizontal">
                 <Col xs={12} md={6} className="mt-3">
                   <div className="fw-bold">DOB </div>
-                  <div>{volunteer?.dob}</div>
+                  <div>{volunteer?.dob && format(new Date(volunteer?.dob), "dd/MM/yyyy")}</div>
                 </Col>
               </Row>
               <Row className="mt-3">
@@ -102,6 +109,7 @@ const VolunteerDetailsCard = ({ id, volunteer }) => {
           </Card.Body>
         </Card>
       </Container>
+      <RateModal show={rateModalShow} handleClose={handleRateModalClose} id={volunteer?.id} />
     </>
   );
 };
